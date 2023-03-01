@@ -46,7 +46,12 @@ class AppAuthController extends ResourceController {
 
   @Operation.put()
   Future<Response> signUp(@Bind.body() User user) async {
-    if (user.password == null || user.userName == null || user.email == null) {
+    if (user.password == null ||
+        user.userName == null ||
+        user.email == null ||
+        user.password!.trim() == '' ||
+        user.userName!.trim() == '' ||
+        user.email!.trim() == '') {
       return AppResponse.badRequest(
           message: 'Поля "email", "userName" и "password" обязательны');
     }
